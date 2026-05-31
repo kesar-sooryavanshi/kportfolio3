@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kesar God Mode Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Outfit:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:Outfit;
+background:#05070f;
+color:white;
+overflow-x:hidden;
+}
+
+/* PARTICLE BG */
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-2;
+}
+
+/* GRID ENERGY BG */
+
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background:linear-gradient(#00f0ff22 1px,transparent 1px),
+linear-gradient(90deg,#00f0ff22 1px,transparent 1px);
+background-size:60px 60px;
+animation:gridMove 8s linear infinite;
+z-index:-1;
+}
+
+@keyframes gridMove{
+0%{transform:translateY(0)}
+100%{transform:translateY(60px)}
+}
+
+/* NAV */
+
+nav{
+position:fixed;
+width:100%;
+padding:20px 8%;
+background:#ffffff10;
+backdrop-filter:blur(15px);
+font-family:Orbitron;
+}
+
+/* HERO */
+
+.hero{
+min-height:100vh;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:120px 8%;
+flex-wrap:wrap;
+}
+
+.hero h1{
+font-size:60px;
+}
+
+.hero span{
+background:linear-gradient(90deg,#00f5ff,#ff00cc,#00ff88);
+-webkit-background-clip:text;
+color:transparent;
+}
+
+.profile{
+text-align:center;
+}
+
+.profile img{
+width:260px;
+border-radius:50%;
+box-shadow:0 0 40px #00f5ff;
+animation:float 4s ease-in-out infinite;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-20px)}
+}
+
+/* HIRE BUTTON */
+
+.hire-btn{
+margin-top:20px;
+padding:14px 40px;
+border:none;
+border-radius:40px;
+font-size:18px;
+background:linear-gradient(45deg,#00f5ff,#ff00cc);
+color:white;
+cursor:pointer;
+box-shadow:0 0 25px #00f5ff;
+transition:.4s;
+}
+
+.hire-btn:hover{
+transform:scale(1.1);
+box-shadow:0 0 60px #ff00cc;
+}
+
+#counter{
+margin-top:10px;
+font-size:28px;
+}
+
+/* GLASS CARD */
+
+.glass{
+background:#ffffff10;
+padding:60px;
+border-radius:30px;
+backdrop-filter:blur(20px);
+transform:translateY(80px);
+opacity:0;
+transition:1s;
+}
+
+.show{
+transform:translateY(0);
+opacity:1;
+}
+
+/* SECTIONS */
+
+section{padding:120px 8%}
+h2{font-size:40px;margin-bottom:40px;font-family:Orbitron}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+}
+
+.card{
+padding:30px;
+border-radius:20px;
+background:#ffffff10;
+transition:.4s;
+}
+
+.card:hover{
+transform:translateY(-12px) scale(1.05);
+box-shadow:0 0 30px #00f5ff;
+}
+
+/* SOCIAL */
+
+.links a{
+display:inline-block;
+margin:10px;
+padding:15px 30px;
+border-radius:40px;
+background:linear-gradient(90deg,#00f5ff,#ff00cc);
+text-decoration:none;
+color:white;
+transition:.4s;
+}
+
+.links a:hover{
+transform:scale(1.1);
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<nav>KESAR</nav>
+
+<!-- HERO -->
+
+<div class="hero">
+
+<div>
+<h1>Hello I'm<br><span>Kesar Sooryavanshi</span></h1>
+<p>BTech Student • Tech Enthusiast • Creator</p>
+</div>
+
+<div class="profile">
+
+<img src="your-photo.jpg">
+
+<button id="hireBtn" class="hire-btn">🔥 Hire Me</button>
+<h3>Total Likes</h3>
+<div id="counter">0</div>
+
+</div>
+
+</div>
+
+<!-- ABOUT -->
+
+<section>
+<div class="glass reveal">
+<h2>About Me</h2>
+<p>
+Hi! I’m Kesar Sooryavanshi, a BTech student passionate about technology, coding and building impactful projects.
+My goal is to become a next-generation developer and create powerful digital experiences.
+</p>
+</div>
+</section>
+
+<!-- SKILLS -->
+
+<section>
+<h2>My Skills</h2>
+<div class="grid">
+<div class="card">Problem Solving</div>
+<div class="card">Leadership</div>
+<div class="card">Time Management</div>
+<div class="card">Communication</div>
+</div>
+</section>
+
+<!-- LANGUAGES -->
+
+<section>
+<h2>Programming Languages</h2>
+<div class="grid">
+<div class="card">Python</div>
+<div class="card">C++</div>
+<div class="card">HTML</div>
+<div class="card">Prompt Engineering</div>
+</div>
+</section>
+
+<!-- SOCIAL -->
+
+<section class="links">
+<h2>Connect With Me</h2>
+<a href="#">Instagram</a>
+<a href="#">LinkedIn</a>
+<a href="#">GitHub</a>
+<a href="#">Twitter</a>
+<a href="#">Commudle</a>
+</section>
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, onValue, set }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+databaseURL:"https://keonex-default-rtdb.firebaseio.com/"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const counterRef = ref(db,"hireCount");
+
+const btn = document.getElementById("hireBtn");
+const counter = document.getElementById("counter");
+
+onValue(counterRef,(snap)=>{
+counter.innerText = snap.val() || 0;
+});
+
+btn.addEventListener("click",()=>{
+let current = parseInt(counter.innerText);
+set(counterRef,current+1);
+});
+
+</script>
+
+<!-- PARTICLES -->
+
+<script>
+
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+let particles=[];
+
+for(let i=0;i<140;i++){
+particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:2});
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+particles.forEach(p=>{
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fillStyle="#00f5ff";
+ctx.fill();
+p.y+=0.5;
+if(p.y>canvas.height)p.y=0;
+});
+
+requestAnimationFrame(animate);
+}
+
+animate();
+
+</script>
+
+<!-- SCROLL REVEAL -->
+
+<script>
+
+const reveals = document.querySelectorAll(".reveal");
+
+window.addEventListener("scroll",()=>{
+reveals.forEach(r=>{
+if(r.getBoundingClientRect().top < window.innerHeight-100){
+r.classList.add("show");
+}
+});
+});
+
+</script>
+
+</body>
+</html>
