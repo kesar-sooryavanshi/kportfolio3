@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kesar – God Mode Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+
+<style>
+
+/* BODY */
+
+body{
+margin:0;
+font-family:Orbitron;
+background:#000;
+color:white;
+overflow-x:hidden;
+}
+
+/* MOUSE GRADIENT */
+
+.cursor-gradient{
+position:fixed;
+width:500px;
+height:500px;
+background:radial-gradient(circle, rgba(0,255,255,0.25), transparent 60%);
+pointer-events:none;
+transform:translate(-50%,-50%);
+}
+
+/* HERO */
+
+.hero{
+text-align:center;
+padding-top:100px;
+}
+
+.hero img{
+width:190px;
+border-radius:50%;
+border:3px solid cyan;
+box-shadow:0 0 25px cyan;
+}
+
+h1{
+font-size:42px;
+background:linear-gradient(90deg,cyan,magenta);
+-webkit-background-clip:text;
+color:transparent;
+}
+
+/* HIRE BUTTON */
+
+.hire-btn{
+margin-top:18px;
+padding:14px 35px;
+font-size:18px;
+border:none;
+border-radius:30px;
+background:linear-gradient(90deg,cyan,blue);
+color:white;
+cursor:pointer;
+transition:0.4s;
+}
+
+.hire-btn:hover{
+transform:scale(1.1);
+box-shadow:0 0 25px cyan;
+}
+
+/* PARTICLE BACKGROUND */
+
+#particles-js{
+position:fixed;
+width:100%;
+height:100%;
+z-index:-1;
+}
+
+/* IRON MAN ENTRY */
+
+.ironman{
+text-align:center;
+margin-top:120px;
+opacity:0;
+transform:translateY(200px);
+animation:entry 2.5s forwards;
+}
+
+@keyframes entry{
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.ironman img{
+width:340px;
+filter:drop-shadow(0 0 35px red);
+animation:float 4s ease-in-out infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0);}
+50%{transform:translateY(-25px);}
+100%{transform:translateY(0);}
+}
+
+/* WHITE BOXES */
+
+.section{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:30px;
+margin-top:120px;
+}
+
+.box{
+width:260px;
+background:white;
+color:black;
+padding:25px;
+border-radius:20px;
+transition:0.4s;
+}
+
+.box:hover{
+transform:translateY(-12px);
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="particles-js"></div>
+<div class="cursor-gradient" id="cursor"></div>
+
+<!-- HERO -->
+
+<div class="hero">
+
+<img src="yourphoto.jpg">
+
+<h1>KESAR SOORYAVANSHI</h1>
+
+<button class="hire-btn">HIRE ME</button>
+
+</div>
+
+<!-- IRON MAN ENTRY -->
+
+<div class="ironman">
+
+<h2>IRON MAN ENTRY CINEMATIC MODE</h2>
+
+<img src="ironman.png">
+
+</div>
+
+<!-- BOXES -->
+
+<div class="section">
+
+<div class="box">
+<h2>About Me</h2>
+<p>BTech student | Future Super App Creator</p>
+</div>
+
+<div class="box">
+<h2>Programming</h2>
+<p>C • Python • HTML • CSS • JS</p>
+</div>
+
+<div class="box">
+<h2>Skills</h2>
+<p>Frontend • UI/UX • Problem Solving</p>
+</div>
+
+</div>
+
+<!-- SCRIPTS -->
+
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+<script>
+
+/* PARTICLES */
+
+particlesJS("particles-js", {
+particles:{
+number:{value:80},
+size:{value:3},
+move:{speed:2},
+line_linked:{enable:true}
+}
+});
+
+/* MOUSE GLOW */
+
+const cursor = document.getElementById("cursor");
+
+document.addEventListener("mousemove", e=>{
+cursor.style.top = e.clientY + "px";
+cursor.style.left = e.clientX + "px";
+});
+
+</script>
+
+</body>
+</html>
