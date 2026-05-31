@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kesar Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+  margin:0;
+  font-family:Orbitron;
+  background:black;
+  overflow:hidden;
+  color:white;
+}
+
+/* animated background */
+
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:-1;
+}
+
+/* card */
+
+.profile-card{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+  text-align:center;
+}
+
+.profile-img{
+  width:220px;
+  border-radius:50%;
+  box-shadow:0 0 40px cyan;
+  animation:float 4s ease-in-out infinite;
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-20px);}
+}
+
+.hire-btn{
+  padding:15px 45px;
+  font-size:18px;
+  border:none;
+  border-radius:50px;
+  background:linear-gradient(45deg,#00f7ff,#ff00c8);
+  color:white;
+  cursor:pointer;
+  box-shadow:0 0 25px #00f7ff;
+  transition:.4s;
+}
+
+.hire-btn:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 70px #ff00c8;
+}
+
+#counter{
+  font-size:28px;
+  text-shadow:0 0 15px cyan;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="profile-card">
+
+  <img src="your-photo.jpg" class="profile-img">
+
+  <button id="hireBtn" class="hire-btn">🔥 Hire Me</button>
+
+  <h2>❤️ Total Likes</h2>
+  <h1 id="counter">0</h1>
+
+</div>
+
+<!-- FIREBASE + SCRIPT -->
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, onValue, set } 
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+  databaseURL: "https://keonex-default-rtdb.firebaseio.com/"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const counterRef = ref(db,"hireCount");
+
+const btn = document.getElementById("hireBtn");
+const counter = document.getElementById("counter");
+
+onValue(counterRef,(snapshot)=>{
+  counter.innerText = snapshot.val() || 0;
+});
+
+btn.addEventListener("click",()=>{
+  let current = parseInt(counter.innerText);
+  set(counterRef,current+1);
+});
+
+</script>
+
+<!-- PARTICLE BACKGROUND -->
+
+<script>
+
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+for(let i=0;i<120;i++){
+  particles.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:2,
+    d:Math.random()*2
+  });
+}
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  ctx.fillStyle="cyan";
+
+  particles.forEach(p=>{
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+
+    p.y += p.d;
+
+    if(p.y>canvas.height){
+      p.y=0;
+    }
+  });
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+
+</script>
+
+</body>
+</html>
